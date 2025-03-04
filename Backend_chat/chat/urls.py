@@ -1,9 +1,12 @@
 from django.urls import path
-from .views import RegisterView, LoginView, ChatView, TokenBalanceView
+from rest_framework.routers import DefaultRouter
+from .views import UserViewSet, AuthViewSet, ChatViewSet, TokenBalanceViewSet
 
-urlpatterns = [
-    path("register/", RegisterView.as_view(), name="register"),
-    path("login/", LoginView.as_view(), name="login"),
-    path("chat/", ChatView.as_view(), name="chat"),
-    path("tokens/", TokenBalanceView.as_view(), name="tokens"),
+router = DefaultRouter()
+router.register(r'users', UserViewSet, basename='user')
+
+urlpatterns = router.urls + [
+    path('auth/login/', AuthViewSet.as_view({'post': 'login'}), name='login'),
+    path('chat/send/', ChatViewSet.as_view({'post': 'send_message'}), name='send_message'),
+    path('tokens/balance/', TokenBalanceViewSet.as_view({'get': 'balance'}), name='token_balance'),
 ]

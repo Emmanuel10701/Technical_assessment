@@ -1,0 +1,35 @@
+### Register a User
+POST http://127.0.0.1:8000/api/register/
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "email": "testuser@example.com",
+  "password": "TestPassword123"
+}
+
+### Login a User
+POST http://127.0.0.1:8000/api/token/
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "TestPassword123"
+}
+
+### Get Protected User Data (Requires Bearer Token)
+GET http://127.0.0.1:8000/api/protected/
+Authorization: Bearer YOUR_ACCESS_TOKEN_HERE
+
+### Refresh Token
+POST http://127.0.0.1:8000/api/token/refresh/
+Content-Type: application/json
+
+{
+  "refresh": "YOUR_REFRESH_TOKEN_HERE"
+}
+
+### Logout
+POST http://127.0.0.1:8000/api/logout/
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN_HERE

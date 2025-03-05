@@ -7,6 +7,7 @@ __pycache__/
 
 # Ignore database files
 *.sqlite3
+test.http
 
 # Ignore logs and temp files
 logs/

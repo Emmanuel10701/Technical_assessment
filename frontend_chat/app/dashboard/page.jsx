@@ -4,10 +4,13 @@ import { useRouter } from "next/navigation";
 import { FaUserCircle, FaSignOutAlt, FaComments, FaRobot, FaCogs } from "react-icons/fa";
 import NavBar from "../components/NavBar"; // Ensure the correct import path
 import { useTheme } from "../context/themeContext";
+import axios from "axios";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [aiMessage, setAiMessage] = useState("");
+  const [tokens, setTokens] = useState(0);
   const router = useRouter();
   const { theme } = useTheme(); // Use dynamic theme
 
@@ -22,23 +25,39 @@ export default function Dashboard() {
 
   async function fetchUserProfile(token) {
     try {
-      const response = await fetch("http://localhost:8000/api/user/", {
+      const response = await axios.get("http://localhost:8000/api/user/", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      if (!response.ok) {
+      if (response.status !== 200) {
         localStorage.removeItem("access_token");
         router.push("/login"); // Redirect if authentication fails
         return;
       }
 
-      const data = await response.json();
-      setUser(data);
+      setUser(response.data);
+      setTokens(response.data.tokens);
+      generateAiResponse(token);
     } catch (error) {
       console.error("Error fetching user:", error);
       router.push("/login");
     }
     setLoading(false);
+  }
+
+  async function generateAiResponse(token) {
+    try {
+      const response = await axios.post("http://localhost:8000/api/chat/", {
+        message: "Hello AI!",
+      }, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setAiMessage(response.data.response);
+      setTokens(response.data.remaining_tokens);
+    } catch (error) {
+      console.error("Error fetching AI response:", error);
+    }
   }
 
   function logout() {
@@ -67,6 +86,7 @@ export default function Dashboard() {
         <div className="w-full max-w-4xl mt-6">
           <h2 className="text-xl font-semibold">Welcome, {user?.username}!</h2>
           <p className="text-gray-400">Chat with our AI assistant and explore intelligent conversations.</p>
+          <p className="text-gray-400 mt-2">Token Balance: {tokens}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 w-full max-w-4xl">
@@ -75,6 +95,7 @@ export default function Dashboard() {
             <div>
               <h3 className="text-lg font-bold">AI Conversations</h3>
               <p className="text-gray-400">Engage in real-time chat with AI.</p>
+              <p className="text-gray-300 mt-2">AI Response: {aiMessage}</p>
             </div>
           </div>
 

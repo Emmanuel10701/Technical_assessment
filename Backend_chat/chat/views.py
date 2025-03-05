@@ -71,7 +71,6 @@ class ChatViewSet(viewsets.ViewSet):
 class TokenBalanceViewSet(viewsets.ViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
-
     @action(detail=False, methods=['get'])
     def balance(self, request):
         return Response({'tokens': request.user.tokens})

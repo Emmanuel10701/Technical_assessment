@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { CircularProgress } from "@mui/material";
+import ThemeProvider from "@/components/ThemeProvider";
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -46,59 +47,61 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-slate-100 min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
-        <h1 className="text-2xl font-bold text-center mb-6">Login to AI Chat Assistant</h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-lg font-bold">Username</label>
-            <input
-              name="username"
-              type="text"
-              required
-              value={formData.username}
-              onChange={handleChange}
-              className="mt-2 w-full p-3 border rounded-lg"
-            />
-          </div>
-
-          <div>
-            <label className="block text-lg font-bold">Password</label>
-            <div className="relative">
+    <ThemeProvider>
+      <div className="bg-slate-100 min-h-screen flex items-center justify-center">
+        <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+          <h1 className="text-2xl font-bold text-center mb-6">Login to AI Chat Assistant</h1>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-lg font-bold">Username</label>
               <input
-                name="password"
-                type={showPassword ? "text" : "password"}
+                name="username"
+                type="text"
                 required
-                value={formData.password}
+                value={formData.username}
                 onChange={handleChange}
-                className="w-full p-3 border rounded-lg"
+                className="mt-2 w-full p-3 border rounded-lg"
               />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xl"
-              >
-                {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
-              </button>
             </div>
-          </div>
 
-          <button
-            type="submit"
-            className="w-full bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-500"
-          >
-            {loading ? <CircularProgress size={24} color="inherit" /> : "Login"}
-          </button>
-        </form>
+            <div>
+              <label className="block text-lg font-bold">Password</label>
+              <div className="relative">
+                <input
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  required
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="w-full p-3 border rounded-lg"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xl"
+                >
+                  {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+                </button>
+              </div>
+            </div>
 
-        <p className="mt-4 text-center text-sm">
-          Don't have an account?{" "}
-          <a href="/register" className="text-indigo-600 hover:underline">
-            Sign up
-          </a>
-        </p>
+            <button
+              type="submit"
+              className="w-full bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-500"
+            >
+              {loading ? <CircularProgress size={24} color="inherit" /> : "Login"}
+            </button>
+          </form>
+
+          <p className="mt-4 text-center text-sm">
+            Don't have an account?{" "}
+            <a href="/register" className="text-indigo-600 hover:underline">
+              Sign up
+            </a>
+          </p>
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 };
 

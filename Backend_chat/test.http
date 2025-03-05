@@ -1,25 +1,25 @@
 ### Register a new user
-POST http://127.0.0.1:8000/users/
+POST http://127.0.0.1:8000/api/users/
 Content-Type: application/json
 
 {
-  "username": "testuser",
-  "password": "password123"
+  "username": "Juma",
+  "password": "Juma123"
 }
 
 ### Login to get the authentication token
-POST http://127.0.0.1:8000/auth/login/
+POST http://127.0.0.1:8000/api/auth/login/
 Content-Type: application/json
 
 {
-  "username": "testuser",
-  "password": "password123"
+  "username": "Juma",
+  "password": "Juma123"
 }
 
 ### Send a message to the chatbot (replace YOUR_TOKEN with the actual token from login)
-POST http://127.0.0.1:8000/chat/send_message/
+POST http://127.0.0.1:8000/api/chat/send_message/
 Content-Type: application/json
-Authorization: Token YOUR_TOKEN
+Authorization: Token 9feac493e328d31e379d94f08d386ecdeea525df
 
 {
   "message": "Hello AI!"

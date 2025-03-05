@@ -30,7 +30,7 @@ const NavBar = () => {
                 Home
               </span>
             </Link>
-            <Link href="/chat">
+            <Link href="/dashboard">
               <span
                 className={`hover:text-blue-400 text-sm font-bold px-3 transition duration-200 uppercase ${
                   pathname === "/chat" ? "text-blue-400" : ""

@@ -16,7 +16,7 @@ env.local
 
 # Ignore virtual environment
 env/
-
+venv
 # Ignore IDE/editor files
 .vscode/
 .idea/

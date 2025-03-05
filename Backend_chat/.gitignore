@@ -12,9 +12,9 @@ __pycache__/
 logs/
 *.log
 *.tmp
+env.local
 
 # Ignore virtual environment
-venv/
 env/
 
 # Ignore IDE/editor files

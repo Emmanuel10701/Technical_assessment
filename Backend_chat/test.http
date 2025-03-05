@@ -1,35 +1,30 @@
-### Register a User
-POST http://127.0.0.1:8000/api/register/
+### Register a new user
+POST http://127.0.0.1:8000/users/
 Content-Type: application/json
 
 {
   "username": "testuser",
-  "email": "testuser@example.com",
-  "password": "TestPassword123"
+  "password": "password123"
 }
 
-### Login a User
-POST http://127.0.0.1:8000/api/token/
+### Login to get the authentication token
+POST http://127.0.0.1:8000/auth/login/
 Content-Type: application/json
 
 {
   "username": "testuser",
-  "password": "TestPassword123"
+  "password": "password123"
 }
 
-### Get Protected User Data (Requires Bearer Token)
-GET http://127.0.0.1:8000/api/protected/
-Authorization: Bearer YOUR_ACCESS_TOKEN_HERE
-
-### Refresh Token
-POST http://127.0.0.1:8000/api/token/refresh/
+### Send a message to the chatbot (replace YOUR_TOKEN with the actual token from login)
+POST http://127.0.0.1:8000/chat/send_message/
 Content-Type: application/json
+Authorization: Token YOUR_TOKEN
 
 {
-  "refresh": "YOUR_REFRESH_TOKEN_HERE"
+  "message": "Hello AI!"
 }
 
-### Logout
-POST http://127.0.0.1:8000/api/logout/
-Content-Type: application/json
-Authorization: Bearer YOUR_ACCESS_TOKEN_HERE
+### Check token balance (replace YOUR_TOKEN with the actual token)
+GET http://127.0.0.1:8000/tokens/balance/
+Authorization: Token YOUR_TOKEN

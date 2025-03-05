@@ -24,7 +24,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'chat',  # Your app name
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -38,7 +38,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'Backend_chat.urls'  # Ensure this matches your project folder
+ROOT_URLCONF = 'Backend_chat.urls'  
 
 TEMPLATES = [
     {
@@ -94,8 +94,11 @@ REST_FRAMEWORK = {
     ),
 }
 
+
+AUTH_USER_MODEL = 'chat.User'  
+  
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',  # Adjust for frontend
+    'http://localhost:3000', 
 ]
 
 SIMPLE_JWT = {

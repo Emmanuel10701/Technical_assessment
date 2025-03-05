@@ -1,14 +1,16 @@
-# serializers.py
 from rest_framework import serializers
-from .models import User, Chat
+from django.contrib.auth import get_user_model
+from .models import Chat
+
+User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'password', 'tokens')
-        extra_kwargs = {'password': {'write_only': True}}
+        fields = ['id', 'username', 'tokens']
 
 class ChatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chat
-        fields = '__all__'
+        fields = ['id', 'user', 'message', 'response', 'timestamp']
+        read_only_fields = ['user', 'response', 'timestamp']

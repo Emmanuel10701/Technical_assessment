@@ -1,25 +1,35 @@
-# views.py
+from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth.hashers import make_password
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
-from django.contrib.auth import get_user_model
 from .models import Chat
 from .serializers import UserSerializer, ChatSerializer
 
+User = get_user_model()
+
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = get_user_model().objects.all()
+    queryset = User.objects.all()
     serializer_class = UserSerializer
 
     def create(self, request, *args, **kwargs):
-        user = get_user_model().objects.create(
-            username=request.data['username'],
-            password=request.data['password']
+        username = request.data.get('username')
+        password = request.data.get('password')
+
+        if not username or not password:
+            return Response({'error': 'Username and password are required'}, status=400)
+
+        if User.objects.filter(username=username).exists():
+            return Response({'error': 'Username already taken'}, status=400)
+
+        user = User.objects.create(
+            username=username,
+            password=make_password(password),
+            tokens=4000
         )
-        user.set_password(request.data['password'])
-        user.save()
         token, _ = Token.objects.get_or_create(user=user)
         return Response({'token': token.key, 'message': 'User registered successfully'})
 
@@ -28,8 +38,9 @@ class AuthViewSet(viewsets.ViewSet):
     def login(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
-        user = get_user_model().objects.filter(username=username).first()
-        if user and user.check_password(password):
+
+        user = authenticate(username=username, password=password)
+        if user:
             token, _ = Token.objects.get_or_create(user=user)
             return Response({'token': token.key})
         return Response({'error': 'Invalid credentials'}, status=400)
@@ -41,13 +52,20 @@ class ChatViewSet(viewsets.ViewSet):
     @action(detail=False, methods=['post'])
     def send_message(self, request):
         user = request.user
+        message = request.data.get('message')
+
+        if not message:
+            return Response({'error': 'Message is required'}, status=400)
+
         if user.tokens < 100:
             return Response({'error': 'Insufficient tokens'}, status=400)
+
         user.tokens -= 100
         user.save()
-        message = request.data.get('message')
+
         response = "This is a dummy AI response."  # Replace with real AI integration
-        Chat.objects.create(user=user, message=message, response=response)
+        chat = Chat.objects.create(user=user, message=message, response=response)
+        
         return Response({'message': message, 'response': response, 'remaining_tokens': user.tokens})
 
 class TokenBalanceViewSet(viewsets.ViewSet):

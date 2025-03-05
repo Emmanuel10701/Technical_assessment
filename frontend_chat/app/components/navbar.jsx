@@ -17,7 +17,7 @@ const NavBar = () => {
         <div className="flex items-center justify-between">
           <h1 className="text-xl">
             <Link href="/">
-              <span className="font-bold uppercase">Web Scraper</span>
+              <span className="font-bold uppercase">AI Chat Assistant</span>
             </Link>
           </h1>
           <div className="flex items-center space-x-6">
@@ -30,13 +30,22 @@ const NavBar = () => {
                 Home
               </span>
             </Link>
+            <Link href="/chat">
+              <span
+                className={`hover:text-blue-400 text-sm font-bold px-3 transition duration-200 uppercase ${
+                  pathname === "/chat" ? "text-blue-400" : ""
+                }`}
+              >
+                Chat
+              </span>
+            </Link>
             <Link href="/about">
               <span
                 className={`hover:text-blue-400 text-sm font-bold px-3 transition duration-200 uppercase ${
                   pathname === "/about" ? "text-blue-400" : ""
                 }`}
               >
-                About Us
+                About
               </span>
             </Link>
             <button

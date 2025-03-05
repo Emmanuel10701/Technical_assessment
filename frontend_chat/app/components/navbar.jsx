@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaMoon, FaSun } from "react-icons/fa";
-import { useTheme } from "../app/context/themeContext";
+import { useTheme } from "../context/themeContext";
 
 const NavBar = () => {
   const pathname = usePathname();

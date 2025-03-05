@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { CircularProgress } from "@mui/material";
-import ThemeProvider from "@/components/ThemeProvider";
+import { ThemeProvider } from "../context/themeContext";
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });

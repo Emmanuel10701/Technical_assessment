@@ -1,7 +1,7 @@
 "use client";
 import { FaRobot, FaCommentDots, FaRocket, FaUserShield, FaShieldAlt, FaGlobe, FaEnvelope } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { useTheme } from "../../app/context/themeContext";
+import { useTheme } from "../context/themeContext";
 
 const Footer = () => {
   const { theme } = useTheme();

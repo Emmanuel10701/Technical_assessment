@@ -4,8 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
 import { FaDatabase, FaRobot, FaComments, FaSearch } from "react-icons/fa";
-import DataDisplay from "../components/hero";
-import { useTheme } from "../app/context/themeContext";
+import { useTheme } from "./context/themeContext";
 
 const features = [
   {
@@ -129,8 +128,6 @@ export default function Home({ data }) {
           </div>
         </div>
       </section>
-
-      <DataDisplay data={data} />
     </div>
   );
 }

@@ -2,19 +2,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaMoon, FaSun, FaBars, FaTimes } from "react-icons/fa";
-import { useTheme } from "../context/themeContext";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 const NavBar = () => {
   const pathname = usePathname();
-  const { theme, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav
-      className={`w-full p-4 shadow-lg border-b fixed top-0 left-0 right-0 z-50 transition-all duration-300 
-      ${theme === "dark" ? "bg-gray-900 text-white border-gray-700" : "bg-white text-gray-900 border-gray-300"}`}
-    >
+    <nav className="w-full p-4 shadow-lg border-b fixed top-0 left-0 right-0 z-50 bg-white text-gray-900 border-gray-300">
       <div className="container mx-auto flex justify-between items-center">
         {/* Title */}
         <h1 className="text-xl font-bold uppercase cursor-pointer">
@@ -24,14 +19,6 @@ const NavBar = () => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
           <NavLinks pathname={pathname} />
-          {/* Theme Toggle Button */}
-          <button
-            onClick={toggleTheme}
-            className="cursor-pointer transition duration-200"
-            aria-label="Toggle Theme"
-          >
-            {theme === "dark" ? <FaSun size={20} /> : <FaMoon size={20} />}
-          </button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -45,19 +32,8 @@ const NavBar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div
-          className={`md:hidden flex flex-col items-center gap-4 py-4 transition-all duration-300 
-          ${theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-900"}`}
-        >
+        <div className="md:hidden flex flex-col items-center gap-4 py-4 bg-gray-100 text-gray-900">
           <NavLinks pathname={pathname} />
-          {/* Theme Toggle Button */}
-          <button
-            onClick={toggleTheme}
-            className="cursor-pointer transition duration-200"
-            aria-label="Toggle Theme"
-          >
-            {theme === "dark" ? <FaSun size={20} /> : <FaMoon size={20} />}
-          </button>
         </div>
       )}
     </nav>

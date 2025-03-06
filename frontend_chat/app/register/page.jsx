@@ -40,7 +40,7 @@ const Register = () => {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/users/`,
+        "https://your-api-url.com/api/users/", // Direct URL used
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

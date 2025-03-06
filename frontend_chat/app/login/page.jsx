@@ -4,13 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { CircularProgress } from "@mui/material";
-import { useTheme } from "../context/themeContext";
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { theme } = useTheme();
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -22,42 +20,45 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login/`, {
+      const response = await fetch("http://127.0.0.1:8000/api/auth/login/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        const { access, refresh } = await response.json();
-        localStorage.setItem("accessToken", access);
-        localStorage.setItem("refreshToken", refresh);
+        const responseData = await response.json();
+        console.log("✅ API Response:", responseData);
 
-        alert("Login successful! Redirecting...");
-        router.push("/chat");
+        const token = responseData.token || responseData.access || responseData.authToken;
+        
+        if (!token) {
+          console.error("❌ Token not found in response:", responseData);
+          alert("Login failed: No token received.");
+          return;
+        }
+
+        localStorage.setItem("accessToken", token);
+        console.log("🔑 Token stored in localStorage:", token);
+
+        alert("✅ Login successful! Redirecting...");
+        router.push("/dashboard");
       } else {
         const errorData = await response.json();
+        console.error("❌ Login error:", errorData);
         alert(errorData.detail || "Login failed. Please check your credentials.");
       }
     } catch (error) {
+      console.error("❌ Fetch error:", error);
       alert("An error occurred. Please try again.");
-      console.error("Login error:", error);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div
-      className={`min-h-screen flex items-center justify-center transition-all duration-300 ${
-        theme === "dark" ? "bg-gray-900 text-white" : "bg-slate-100 text-gray-900"
-      }`}
-    >
-      <div
-        className={`w-full max-w-md p-6 rounded-lg shadow-lg ${
-          theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"
-        }`}
-      >
+    <div className="min-h-screen flex items-center justify-center bg-slate-100 text-gray-900">
+      <div className="w-full max-w-md p-6 rounded-lg shadow-lg bg-white text-gray-900">
         <h1 className="text-2xl font-bold text-center mb-6">Login to AI Chat Assistant</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -68,9 +69,7 @@ const Login = () => {
               required
               value={formData.username}
               onChange={handleChange}
-              className={`mt-2 w-full p-3 border rounded-lg ${
-                theme === "dark" ? "bg-gray-700 text-white border-gray-600" : "border-gray-300"
-              }`}
+              className="mt-2 w-full p-3 border rounded-lg border-gray-300"
             />
           </div>
 
@@ -83,9 +82,7 @@ const Login = () => {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full p-3 border rounded-lg ${
-                  theme === "dark" ? "bg-gray-700 text-white border-gray-600" : "border-gray-300"
-                }`}
+                className="w-full p-3 border rounded-lg border-gray-300"
               />
               <button
                 type="button"

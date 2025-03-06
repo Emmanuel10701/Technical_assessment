@@ -3,18 +3,12 @@
 import { FaRobot, FaCommentDots, FaRocket, FaUserShield } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useTheme } from "../context/themeContext"; // Ensure this exists
 
 const About = () => {
-  const { theme } = useTheme();
   const router = useRouter();
 
   return (
-    <div
-      className={`py-16 ${
-        theme === "dark" ? "bg-gray-900 text-white" : "bg-gradient-to-r from-blue-50 to-blue-100"
-      }`}
-    >
+    <div className="py-16 bg-gradient-to-r from-blue-50 to-blue-100">
       <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-24">
         <motion.div
           initial={{ opacity: 0 }}
@@ -22,10 +16,10 @@ const About = () => {
           transition={{ duration: 1 }}
           className="text-center mb-12"
         >
-          <h1 className="text-3xl font-extrabold mt-[10%] sm:text-4xl mb-4">
+          <h1 className="text-3xl font-extrabold mt-[10%] sm:text-4xl mb-4 bg-gradient-to-r from-blue-500 to-purple-600 text-transparent bg-clip-text">
             About Our AI Chat Assistant
           </h1>
-          <p className={`mt-4 text-base ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+          <p className="mt-4 text-base text-gray-700">
             Our AI-powered chat assistant provides seamless and intelligent conversations, helping users get instant responses, automate tasks, and improve productivity.
           </p>
         </motion.div>
@@ -42,25 +36,13 @@ const About = () => {
               initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className={`rounded-lg p-6 transition-all ${
-                theme === "dark"
-                  ? "bg-gray-800 text-white hover:bg-gray-700 hover:text-black"
-                  : "bg-white hover:bg-blue-50"
-              }`}
+              className="rounded-lg p-6 transition-all bg-white hover:bg-blue-50"
             >
               <div className="flex items-center mb-4">
                 <Icon className={`text-${color}-600 text-2xl mr-4`} />
-                <h2
-                  className={`text-xl font-bold ${
-                    theme === "dark" ? "text-gray-100" : "text-gray-900"
-                  }`}
-                >
-                  {title}
-                </h2>
+                <h2 className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 text-transparent bg-clip-text">{title}</h2>
               </div>
-              <p className={`text-base ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
-                {text}
-              </p>
+              <p className="text-base text-gray-700">{text}</p>
             </motion.div>
           ))}
         </div>
@@ -71,20 +53,20 @@ const About = () => {
           transition={{ duration: 1.2 }}
           className="mt-16 text-center"
         >
-          <h2 className="text-2xl font-bold mb-4">Why Choose Our Chat AI?</h2>
-          <p className="text-base text-gray-700 dark:text-white mb-4">
+          <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-purple-600 text-transparent bg-clip-text">
+            Why Choose Our Chat AI?
+          </h2>
+          <p className="text-base text-gray-700 mb-4">
             Our Chat AI is built to make conversations smoother and smarter, assisting you in various scenarios, from answering FAQs to executing automated workflows.
           </p>
-          <p className="text-base text-gray-700 dark:text-white">
+          <p className="text-base text-gray-700">
             Whether you're a business looking to enhance customer interactions or an individual seeking a powerful virtual assistant, our AI is designed to adapt to your needs.
           </p>
         </motion.div>
 
         <button
           onClick={() => router.push("/")}
-          className={`px-6 py-2 bg-transparent border border-gray-500 mt-10 rounded-full shadow hover:bg-gray-500 hover:text-white transition-all ${
-            theme === "dark" ? "text-gray-100" : "text-gray-800"
-          }`}
+          className="px-6 py-2 bg-transparent border border-gray-500 mt-10 rounded-full shadow hover:bg-gray-500 hover:text-white transition-all text-gray-800"
         >
           Go Back
         </button>

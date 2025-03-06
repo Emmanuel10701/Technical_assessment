@@ -1,13 +1,9 @@
 "use client";
-import { FaRobot, FaCommentDots, FaRocket, FaUserShield, FaShieldAlt, FaGlobe, FaEnvelope } from "react-icons/fa";
-import { motion } from "framer-motion";
-import { useTheme } from "../context/themeContext";
+import { FaRobot, FaShieldAlt, FaGlobe, FaEnvelope } from "react-icons/fa";
 
 const Footer = () => {
-  const { theme } = useTheme();
-
   return (
-    <footer className={`py-6 text-center ${theme === "dark" ? "bg-gray-800 text-gray-300" : "bg-gray-100 text-gray-700"}`}>
+    <footer className="py-6 text-center bg-gray-100 text-gray-700">
       <div className="max-w-5xl mx-auto px-6 flex flex-col items-center space-y-4">
         <FaRobot className="text-blue-600 text-3xl" />
         <p className="text-sm">&copy; {new Date().getFullYear()} AI Chat Assistant. All rights reserved.</p>

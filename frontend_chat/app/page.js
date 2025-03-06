@@ -2,15 +2,14 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { FaDatabase, FaRobot, FaComments, FaSearch } from "react-icons/fa";
-import { useTheme } from "./context/themeContext";
 
 const features = [
   {
     title: "Instant AI Responses",
     description: "Chat with our AI assistant to get quick and intelligent answers.",
-    icon: <FaRobot className="text-blue-500 text-4xl" />,
+    icon: <FaRobot className="text-blue-500 text-4xl" />, 
   },
   {
     title: "Seamless Conversations",
@@ -30,25 +29,15 @@ const features = [
 ];
 
 export default function Home({ data }) {
-  const { theme } = useTheme();
+  const router = useRouter();
 
   return (
-    <div
-      className={`font-poppins transition-all duration-300 ${
-        theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"
-      }`}
-    >
-      <header
-        className={`relative text-center py-16 transition-all duration-300 ${
-          theme === "dark" ? "bg-gray-800" : "bg-blue-50"
-        }`}
-      >
+    <div className="font-poppins transition-all duration-300 bg-gray-50 text-gray-900">
+      <header className="relative text-center py-16 bg-blue-50 transition-all duration-300">
         <div className="flex flex-col-reverse md:flex-row items-center mx-4 md:mx-40 mt-10">
           <div className="md:w-1/2">
             <motion.h1
-              className={`mb-4 text-5xl font-bold transition-all duration-300 ${
-                theme === "dark" ? "text-white" : "text-gray-900"
-              }`}
+              className="mb-4 text-5xl font-bold text-gray-900 transition-all duration-300"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
@@ -56,9 +45,7 @@ export default function Home({ data }) {
               Experience <span className="text-blue-600">AI Chat</span>
             </motion.h1>
             <motion.p
-              className={`mb-8 max-w-xl mx-auto leading-relaxed transition-all duration-300 ${
-                theme === "dark" ? "text-gray-400" : "text-gray-500"
-              }`}
+              className="mb-8 max-w-xl mx-auto leading-relaxed text-gray-500 transition-all duration-300"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7 }}
@@ -72,7 +59,7 @@ export default function Home({ data }) {
               transition={{ duration: 0.8 }}
             >
               <button
-                onClick={() => signIn("google")}
+                onClick={() => router.push("/login")}
                 className="px-8 py-3 font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 transition duration-300"
               >
                 Login
@@ -90,39 +77,22 @@ export default function Home({ data }) {
         </div>
       </header>
 
-      <section
-        id="features"
-        className={`py-16 px-4 mx-4 md:px-12 transition-all duration-300 ${
-          theme === "dark" ? "bg-gray-800" : "bg-gray-100"
-        }`}
-      >
+      <section id="features" className="py-16 px-4 mx-4 md:px-12 bg-gray-100 transition-all duration-300">
         <div className="max-w-7xl mx-auto text-center">
-          <h2
-            className={`text-4xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-green-500 transition-all duration-300 ${
-              theme === "dark" ? "text-white" : "text-gray-900"
-            }`}
-          >
+          <h2 className="text-4xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-green-500 transition-all duration-300">
             Why Choose <span className="text-green-600">Our AI Chat</span>?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className={`p-6 shadow-md rounded-lg transition-transform duration-500 transform hover:scale-105 flex flex-col items-center ${
-                  theme === "dark" ? "bg-gray-700 text-white" : "bg-white text-gray-900"
-                }`}
+                className="p-6 shadow-md rounded-lg transition-transform duration-500 transform hover:scale-105 flex flex-col items-center bg-white text-gray-900"
               >
-                <span
-                  className={`flex items-center justify-center mb-4 p-4 rounded-full ${
-                    theme === "dark" ? "bg-gray-600 text-blue-400" : "bg-blue-100 text-blue-500"
-                  }`}
-                >
+                <span className="flex items-center justify-center mb-4 p-4 rounded-full bg-blue-100 text-blue-500">
                   {feature.icon}
                 </span>
                 <h4 className="mb-2 text-lg font-bold">{feature.title}</h4>
-                <p className={theme === "dark" ? "text-gray-300" : "text-gray-500"}>
-                  {feature.description}
-                </p>
+                <p className="text-gray-500">{feature.description}</p>
               </div>
             ))}
           </div>

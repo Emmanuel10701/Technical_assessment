@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaUserCircle, FaSignOutAlt, FaComments, FaRobot, FaCogs, FaTimes, FaPaperPlane } from "react-icons/fa";
-import { useTheme } from "../context/themeContext";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
 
@@ -14,7 +13,6 @@ export default function Dashboard() {
   const [chatMessages, setChatMessages] = useState([]);
   const [message, setMessage] = useState("");
   const router = useRouter();
-  const { theme } = useTheme();
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
@@ -70,7 +68,7 @@ export default function Dashboard() {
   if (loading) return <div className="flex items-center justify-center h-screen text-white text-2xl"><CircularProgress /></div>;
 
   return (
-    <div className={`${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-900"} min-h-screen`}>
+    <div className="bg-white text-gray-900 min-h-screen">
       <div className="flex flex-col items-center p-6 pt-20">
         <header className="w-full max-w-4xl flex justify-between items-center p-4 shadow-md rounded-lg">
           <div className="flex items-center space-x-4">

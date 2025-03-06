@@ -12,12 +12,10 @@ While this application currently provides core functionality, **future improveme
 ## **Technologies Used 💻**
 
 - **Backend Framework**: Django (RESTful API for managing users, chats, and tokens).
-- **Frontend Framework**: Next.js (dynamic UI with Tailwind CSS).
+- **Frontend Framework**: Next.js (dynamic UI with Tailwind CSS). We can also use react angular or vue js
 - **Styling**: Tailwind CSS (for modern, responsive design).
-- **Database**: SQLite for development and PostgreSQL for production.
-- **Authentication**: JWT-based authentication for secure login and session management.
-- **Containerization**: Docker for containerizing the application.
-- **Cloud Deployment**: (Suggested for future use) Deployment on **AWS**, **Google Cloud**, or **Azure**.
+- **Database**: SQLite for development and  we can use MySQL or PostgreSQL for production.
+- **Authentication**: JWT-based authentication for secure login and session management. i Preferred to use the simple jwt of for authentication 
 
 ---
 

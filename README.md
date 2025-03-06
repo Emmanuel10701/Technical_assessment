@@ -1,7 +1,5 @@
-# Let's create the markdown content and write it to a file.
 
-readme_content = """
-# **AI Chat System (Full Stack Application)**
+# **AI Chat System of backend (Full Stack Application)**
 
 ## **Overview 🌟**
 
@@ -56,9 +54,7 @@ While this application currently provides core functionality, **future improveme
    ```bash
    git clone https://github.com/YourUsername/AI-Chat-System.git
    cd AI-Chat-System
-# Creating the README markdown content as requested
 
-readme_content = """
 # Project Setup Guide
 
 ## Backend Setup (Django)

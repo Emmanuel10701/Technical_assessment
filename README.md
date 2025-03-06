@@ -110,6 +110,63 @@ While this application currently provides core functionality, **future improveme
     ```bash
     npm run dev
     ```
+# API Testing Guide
+
+This document provides a step-by-step guide to test the API endpoints for user registration, authentication, chatbot messaging, and token balance checking.
+
+## Register a New User
+```http
+POST http://127.0.0.1:8000/api/users/
+Content-Type: application/json
+
+{
+  "username": "Makau",
+  "password": "makau123"
+}
+```
+
+## Login to Get the Authentication Token
+```http
+POST http://127.0.0.1:8000/api/auth/login/
+Content-Type: application/json
+
+{
+  "username": "Juma",
+  "password": "Juma123"
+}
+```
+
+## Send a Message to the Chatbot
+Replace `YOUR_TOKEN` with the actual token received from the login response.
+```http
+POST http://127.0.0.1:8000/api/chat/send_message/
+Content-Type: application/json
+Authorization: Token YOUR_TOKEN
+
+{
+  "message": "Hello AI!"
+}
+```
+
+## Check Token Balance
+Replace `YOUR_TOKEN` with the actual token.
+```http
+GET http://127.0.0.1:8000/api/tokens/balance/
+Authorization: Token YOUR_TOKEN
+```
+
+## Get User Details
+Replace `YOUR_TOKEN` with the actual token.
+```http
+GET http://127.0.0.1:8000/api/user/details/
+Authorization: Token YOUR_TOKEN
+```
+
+## Notes
+- Ensure that the Django server is running before making requests.
+- Use a valid authentication token to access protected endpoints.
+- Replace placeholder values with actual data where necessary.
+
 
 ## Future Suggestions 🚀
 
@@ -130,8 +187,3 @@ While the application currently offers the core features, there are opportunitie
 ## Conclusion 🎯
 
 This AI Chat System provides a foundation for building intelligent chatbots and integrates modern technologies for scalable deployment. It offers a user-friendly experience with secure authentication and real-time token management. The suggested future improvements, such as neural network integration and DevOps practices, will significantly enhance the system's capabilities, making it more efficient and scalable.
-
-## License 📄
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-"""
